@@ -22,6 +22,8 @@
     <router-link to="/VcNavigation">Vc Navigation</router-link>
     |
     <router-link to="/VcOverviewMap">Vc Overview Map</router-link>
+    |
+    <router-link to="/Baidu">百度</router-link>
   </nav>
   <router-view/>
 </div>

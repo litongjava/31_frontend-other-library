@@ -6,11 +6,10 @@
       <vc-provider-imagery-tianditu map-style="cva_c" :token="token">
       </vc-provider-imagery-tianditu>
     </vc-layer-imagery>
+
     <vc-layer-imagery :alpha="alpha" :brightness="brightness" :contrast="contrast" :sort-order="10">
-      <vc-provider-imagery-tianditu
-        :map-style="mapStyle"
-        :token="token"
-      ></vc-provider-imagery-tianditu>
+      <vc-provider-imagery-tianditu :map-style="mapStyle" :token="token">
+      </vc-provider-imagery-tianditu>
     </vc-layer-imagery>
   </vc-viewer>
 
@@ -22,11 +21,10 @@
     <span>对比度</span>
     <vue-slider v-model="contrast" :min="0" :max="3" :interval="0.01"></vue-slider>
     <span>切换服务</span>
-    <md-select v-model="mapStyle" placeholder="请选择地图服务类型">
-      <md-option v-for="item in options" :key="item.value" :value="item.value">
-        {{item.label}}
-      </md-option>
-    </md-select>
+    <el-select v-model="mapStyle" placeholder="请选择地图服务类型">
+      <el-option v-for="item in options" :key="item.value" :value="item.value" :label="item.label">
+      </el-option>
+    </el-select>
   </div>
 </div>
 </template>

@@ -20,6 +20,7 @@ import 'vue-cesium/lib/vc-map-overview.css'
 // 引入 Vue Slider
 import VueSlider from 'vue-slider-component';
 import 'vue-slider-component/theme/default.css'; // 引入默认样式
+import './plugins/element.js'
 
 Vue.component('VueSlider', VueSlider);
 

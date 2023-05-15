@@ -62,6 +62,11 @@ const routes = [
     path: '/VcOverviewMap',
     name: 'VcOverviewMap',
     component: () => import(/* webpackChunkName: "about" */ '../views/VcOverviewMap.vue')
+  },
+  {
+    path: '/Baidu',
+    name: 'Baidu',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Baidu.vue')
   }
 ]
 
