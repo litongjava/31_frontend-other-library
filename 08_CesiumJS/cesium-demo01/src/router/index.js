@@ -37,7 +37,18 @@ const routes = [
     path: '/HelloCesium',
     name: 'HelloCesium',
     component: () => import(/* webpackChunkName: "about" */ '../views/HelloCesium.vue')
+  },
+  {
+    path: '/VcEntity',
+    name: 'VcEntity',
+    component: () => import(/* webpackChunkName: "about" */ '../views/VcEntity.vue')
+  },
+  {
+    path: '/VcPrimitiveModel',
+    name: 'VcPrimitiveModel',
+    component: () => import(/* webpackChunkName: "about" */ '../views/VcPrimitiveModel.vue')
   }
+
 
 
 ]

@@ -8,6 +8,8 @@ import lang from 'vue-cesium/lang/zh-hans'
 // import lang from 'vue-cesium/lang/en-us'
 Vue.use(VueCesium)
 
+import './plugins/vue-material.js';
+
 Vue.config.productionTip = false
 
 new Vue({

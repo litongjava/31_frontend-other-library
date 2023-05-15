@@ -12,6 +12,10 @@
     <router-link to="/VcViewer">Vc Viewer</router-link>
     |
     <router-link to="/VcLayerImagery">Vc Layer Imagery</router-link>
+    |
+    <router-link to="/VcEntity">VcEntity</router-link>
+    |
+    <router-link to="/VcPrimitiveModel">VcPrimitiveModel</router-link>
   </nav>
   <router-view/>
 </div>
