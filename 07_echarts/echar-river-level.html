@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.5.0/dist/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<div id="main" style="width: 500px;height: 500px;"></div>
+</body>
+<script type="text/javascript">
+var myChart = echarts.init(document.getElementById('main'));
+
+option = {
+  tooltip: {
+    trigger: 'axis'
+  },
+  legend: {
+    show: true,
+    orient: 'vertical',
+    top: 15,
+    data: [{ name: '水位', icon: 'image://./img/round.png' }],
+    textStyle: { fontSize: 15, fontWeight: 'bolder' },
+  },
+  grid: { top: '3%', left: '4%', right: '4%', bottom: '15%', containLabel: true, },
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  xAxis: {
+    type: 'value',
+    axisTick: { show: true, alignWithLabel: true, },
+    splitLine: {
+      lineStyle: { type: 'dashed' }
+    },
+    splitNumber: 10
+  },
+  yAxis: {
+    type: 'value',
+    name: '水位(m)',
+    nameLocation: 'center',
+    nameGap: 15,
+    splitLine: {
+      lineStyle: { type: 'solid' }
+    }
+  },
+  series: [{
+    type: 'line',
+    name: '水位',
+    symbol: 'image://./img/round.png',
+    symbolSize: 20,
+    itemStyle: {
+      normal: {
+        color: 'rgb(78,128,187)',
+        lineStyle: { color: 'rgb(78,128,187)' }
+      }
+    },
+    data: [1, 7, 2, 3, 8, 4, 7, 6, 6, 5.5, 5.3, 10]
+  }]
+};
+myChart.setOption(option);
+</script>
+
+</html>
