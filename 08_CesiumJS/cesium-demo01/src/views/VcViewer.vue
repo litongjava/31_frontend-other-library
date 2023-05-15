@@ -78,3 +78,16 @@ export default {
   }
 }
 </script>
+<style>
+  .viewer {
+    position: relative;
+  }
+
+  .demo-tool {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    color: white;
+  }
+</style>

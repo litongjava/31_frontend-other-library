@@ -16,6 +16,12 @@
     <router-link to="/VcEntity">VcEntity</router-link>
     |
     <router-link to="/VcPrimitiveModel">VcPrimitiveModel</router-link>
+    |
+    <router-link to="/Tianditu">Tianditu</router-link>
+    |
+    <router-link to="/VcNavigation">Vc Navigation</router-link>
+    |
+    <router-link to="/VcOverviewMap">Vc Overview Map</router-link>
   </nav>
   <router-view/>
 </div>

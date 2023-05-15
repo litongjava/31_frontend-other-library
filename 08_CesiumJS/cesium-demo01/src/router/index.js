@@ -47,10 +47,22 @@ const routes = [
     path: '/VcPrimitiveModel',
     name: 'VcPrimitiveModel',
     component: () => import(/* webpackChunkName: "about" */ '../views/VcPrimitiveModel.vue')
+  },
+  {
+    path: '/Tianditu',
+    name: 'Tianditu',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Tianditu.vue')
+  },
+  {
+    path: '/VcNavigation',
+    name: 'VcNavigation',
+    component: () => import(/* webpackChunkName: "about" */ '../views/VcNavigation.vue')
+  },
+  {
+    path: '/VcOverviewMap',
+    name: 'VcOverviewMap',
+    component: () => import(/* webpackChunkName: "about" */ '../views/VcOverviewMap.vue')
   }
-
-
-
 ]
 
 const router = new VueRouter({
