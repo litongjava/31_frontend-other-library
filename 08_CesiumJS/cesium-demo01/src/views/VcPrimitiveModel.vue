@@ -20,6 +20,8 @@
       <md-checkbox v-model="proceduralEnvironmentLighting" class="md-primary">Use procedural environment
         lighting
       </md-checkbox>
+      <button @click="moveModel">Move Model</button>
+      <button @click="jumpToModelPosition">Jump to Model Position</button>
     </div>
   </vc-viewer>
 </div>
@@ -45,7 +47,12 @@ export default {
       proceduralEnvironmentLighting: false,
       luminanceAtZenith: 0.2,
       specularEnvironmentMaps: environmentMapURL,
-      sphericalHarmonicCoefficients: coefficients
+      sphericalHarmonicCoefficients: coefficients,
+      modelPosition: null,
+      latitude: 105,
+      longitude: 38,
+      height: 10000,
+
     }
   },
   watch: {
@@ -63,14 +70,40 @@ export default {
     ready(cesiumInstance) {
       const {Cesium, viewer} = cesiumInstance
       this.viewer = viewer
-      this.modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(Cesium.Cartesian3.fromDegrees(105, 38, 10000))
+      this.Cesium = Cesium // 添加这行代码
+      let translation = Cesium.Cartesian3.fromDegrees(this.latitude, this.longitude, this.height);
+      this.modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(translation)
     },
     readyPromise(model) {
       const boundingSphere = Cesium.BoundingSphere.transform(model.boundingSphere, model.modelMatrix)
       this.viewer.scene.camera.flyToBoundingSphere(boundingSphere)
+      this.modelPosition = boundingSphere.center
     },
     clicked(e) {
       console.log(e)
+    },
+    moveModel() {
+      const {Cesium} = this
+      //const translation = new Cesium.Cartesian3(1, 0, 0) // 设置平移向量
+      //使用三维坐标
+      let translation = Cesium.Cartesian3.fromDegrees(115, 38, 10000);
+      const modelMatrix = Cesium.Matrix4.fromTranslation(translation) // 构建平移矩阵
+      this.modelMatrix = modelMatrix
+
+      // 更新模型位置
+      const modelMatrixInverse = Cesium.Matrix4.inverse(modelMatrix, new Cesium.Matrix4())
+      const modelPosition = Cesium.Matrix4.getTranslation(modelMatrixInverse, new Cesium.Cartesian3())
+      this.modelPosition = modelPosition
+    },
+    jumpToModelPosition() {
+      const {Cesium} = this
+      if (this.modelPosition) {
+        const destination = Cesium.Cartesian3.clone(this.modelPosition)
+        this.viewer.scene.camera.flyTo({
+          destination,
+          duration: 2
+        })
+      }
     }
   }
 }
