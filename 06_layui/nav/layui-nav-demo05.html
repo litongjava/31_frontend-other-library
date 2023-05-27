@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css" />
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<div class="page-content" id="nav_xbs_tab">
+  <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+    <ul class="layui-tab-title" id="xbs_tab">
+      <li lay-id="0" class="layui-this">网站设置</li>
+      <li lay-id="1">用户管理</li>
+    </ul>
+    <div class="layui-tab-content">
+      <div class="layui-tab-item layui-show">1</div>
+      <div class="layui-tab-item">2</div>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+/*选项卡右键关闭刷新*/
+layui.config({
+  base: 'js/',
+}).use(['element', 'tabrightmenu'], function() {
+  var element = layui.element;
+  var rightmenu_ = layui.tabrightmenu;
+
+  // 默认方式渲染全部：关闭当前（closethis）、关闭所有（closeall）、关闭其它（closeothers）、关闭左侧所有（closeleft）、关闭右侧所有（closeright）、刷新当前页（refresh）
+  rightmenu_.render({
+    container: '#nav_xbs_tab',
+    filter: 'xbs_tab',
+    navArr: [
+      { eventName: 'refresh', title: '刷新当前页' },
+      { eventName: 'closethis', title: '关闭当前页' },
+      { eventName: 'closeall', title: '关闭所有页' },
+      { eventName: 'closeothers', title: '关闭其它页' }
+    ],
+  });
+});
+</script>
+
+</html>

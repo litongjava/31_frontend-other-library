@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css" />
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<input type="text" id="test1">
+</body>
+<script type="text/javascript">
+layui.use(['laydate'], function() {
+  laydate=layui.laydate;
+  //执行一个laydate实例
+  laydate.render({
+    elem: '#test1', //指定元素
+    theme:'molv',
+    //range:true,
+  })
+})
+</script>
+
+</html>

@@ -42,7 +42,7 @@ const environmentMapURL = './statics/SampleData/EnvironmentMap/kiara_6_afternoon
 export default {
   data() {
     return {
-      url: './statics/SampleData/models/Pawns/Pawns.glb',
+      url: './statics/SampleData/models/Pawns/ship_1.glb',
       modelMatrix: {},
       proceduralEnvironmentLighting: false,
       luminanceAtZenith: 0.2,

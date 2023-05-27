@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title></title>
+<link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css" />
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(function() {
+  layui.laydate.render({
+    elem: 'input[name=startTime]',
+    max: 'new Date()'
+  });
+});
+$(function(){
+  document.getElementsByName("startTime")[0].setAttribute("lay-verify", "required|date");
+});
+window.onload=function(){
+  document.getElementsByName("startTime")[0].setAttribute("lay-verify", "required|date");
+};
+</script>
+</head>
+
+<body>
+<form class="layui-form">
+  <label>开始日期：</label>
+  <input type="text" readonly name="startTime" readonly="readonly">
+  <button type="button" lay-submit>提交</button>
+</form>
+</body>
+
+</html>

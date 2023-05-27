@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css" />
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.js" type="text/javascript" charset="utf-8"></script>
+<title></title>
+
+</head>
+
+<body>
+<form id="form1" method="post" style="display:none;">
+  <div class="none">
+    姓名：<input name="data[name]" type="text"></br>
+    年龄：<input name="data[age]" type="text"></br>
+  </div>
+  性别：<input name="data[gender]" type="text"></br>
+  学历：<input name="data[education]" type="text"></br>
+  <button type="button" onclick="check()" style="width:6rem;height:2rem;">测试隐藏</button>
+  <button type="submit" style="width:6rem;height:2rem;">提交表单</button>
+</form>
+
+<script>
+layui.use(['layer'],function(){
+  lauer=layui.layer;
+})
+//$("#form1").css('display','block');layer.open({content:$("#form1").html()})
+</script>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css" />
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.js" type="text/javascript" charset="utf-8"></script>
+
+<body>
+<table lay-filter="listTable" id="tableid"></table>
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">增加</a>
+</script>
+</body>
+<script type="text/javascript">
+var contextPath = ""
+layui.use(['table', 'layer', 'form', 'element', 'jquery', 'tree'], function() {
+  var table = layui.table,
+    layer = layui.layer,
+    form = layui.form,
+    element = layui.element,
+    $ = layui.jquery,
+    tree = layui.tree;
+
+  table.render({
+    toolbar: '#barDemo', //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+    elem: '#tableid',
+    url: contextPath + "/listScheduleTrigger",
+    id: 'userReload',
+    cols: [
+      [{
+        field: 'id',
+        title: 'Id',
+        sort: true,
+        align: 'center'
+      }, {
+        field: 'cron',
+        title: 'cron',
+        align: 'center'
+      }, {
+        field: 'job_name',
+        title: 'job_name',
+        align: 'center'
+      }, {
+        field: 'status',
+        title: 'status',
+        align: 'center',
+        templet: function(d) {
+          var state = "";
+          if(d.status == "1") {
+            state = "<input type='checkbox' value='" + d.id + "' id='status' lay-filter='stat' checked='checked' name='status'  lay-skin='switch' lay-text='开启|关闭' >";
+          } else {
+            state = "<input type='checkbox' value='" + d.id + "' id='status' lay-filter='stat'  name='status'  lay-skin='switch' lay-text='开启|关闭' >";
+
+          }
+
+          return state;
+        }
+
+      }]
+    ]
+  });
+
+  // 查询 数据渲染 重载
+  var $ = layui.$,
+    active = {
+      reload: function() {
+        // 执行重载
+        table.reload('userReload', {
+          page: {
+            // 重新从第 1 页开始
+            // curr: 1
+          },
+          where: {}
+        });
+      }
+
+    };
+
+  //监听开关事件
+  form.on('switch(stat)', function(data) {
+    var contexts;
+    var sta;
+    var x = data.elem.checked; //判断开关状态
+    if(x == true) {
+      contexts = "打开";
+      sta = 1;
+    } else {
+      contexts = "关闭";
+      sta = 0;
+    }
+    //自定义弹窗
+    layer.open({
+      content: "你确定要" + contexts + "?",
+      btn: ['确定', '取消'],
+      yes: function(index, layero) {
+        //按钮确定【按钮一】的回调
+        data.elem.checked = x;
+        //对商品进行上架或下架处理
+        $.ajax({
+          type: "post",
+          url: contextPath + '/button',
+          data: {
+            //上下架的参数
+            "id": data.value,
+            "status": sta
+          },
+          success: function(data) {
+            if(data == 1) {
+              layer.msg(contexts + '成功',
+                // 提示的样式
+                { icon: 1, time: 2000, });
+
+              // 数据重载
+              active.reload();
+            }
+          }
+        });
+
+        form.render();
+        layer.close(index);
+
+      },
+      btn2: function(index, layero) {
+        //按钮【按钮二】的回调
+        data.elem.checked = !x;
+        form.render();
+        layer.close(index);
+        //return false 开启该代码可禁止点击该按钮关闭
+      },
+      cancel: function() {
+        //右上角关闭回调
+        data.elem.checked = !x;
+        form.render();
+        // return false; //开启该代码可禁止点击该按钮关闭
+      }
+    });
+
+    return false;
+
+  });
+
+});
+</script>
+
+</html>

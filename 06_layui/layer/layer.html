@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>layui</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css" />
+
+</head>
+
+<body>
+
+<form id="form1" class="layui-form" style="display:none">
+  <div class="layui-form-item">
+    <label for="" class="layui-form-label">姓名</label>
+    <div class="layui-input-block">
+      <input type="text" class="layui-input" required lay-verify="required" placeholder="请输出姓名" autocomplete="off"/>
+    </div>
+  </div>
+</form>
+
+
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+layui.use(['layer'],function(){
+  $=layui.$;
+  layer=layui.layer;
+})
+</script>
+</body>
+
+</html>

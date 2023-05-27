@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css" />
+<script src="https://www.layuicdn.com/layui-v2.5.5/layui.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+<table id="table"></table>
+</body>
+<script type="text/javascript">
+layui.use('table', function() {
+  var table = layui.table;
+  table.render({
+    elem:'#table',
+    page: true,
+    url: 'http://ibotcluster.online.uairobot.com/php-user-data/layui/table.php',
+    cols: [[
+      { field: 'name', title: '姓名' }
+    ]],
+
+  });
+});
+</script>
+
+</html>

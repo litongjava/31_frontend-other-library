@@ -1,0 +1,166 @@
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>树组件</title>
+<link rel="stylesheet" href="../layui/css/layui.css"> </head>
+
+<body>
+<div id="layTree"></div>
+</body>
+<script src="../layui/layui.js"></script>
+<script type="text/javascript">
+layui.use(['tree', 'layer'], function() {
+  var layer = layui.layer,
+    $ = layui.jquery,
+    tree = layui.tree;
+  // 同步(绑定)layui的tree的搜索(过滤)框
+  // treeId: tree所在的容器的id
+  // filter: 对应的搜索框的selector或者dom对象,尽量要确保是唯一的节点，或者真的是要控制这个树的input
+  // callback: 回调 参数(树节点jquery对象, 输入框对象, 匹配到的节点数量)
+  tree.syncLayuiTreeFilter = function(treeId, filter, callback) {
+    var treeElem = $('#' + treeId),
+      filterElem = $(filter);
+    if(!filterElem.length || !filterElem.length) {
+      return;
+    }
+    filterElem.keyup(function(event) {
+      var that = this;
+      var value = $(that).val().trim().toLocaleLowerCase(); //不区分大小写
+      var HIDE = 'layui-hide';
+      var hintClass = 'search_hit';
+      // 先恢复现场
+      treeElem.find('.' + HIDE).removeClass(HIDE);
+      treeElem.find('.' + hintClass).removeClass(hintClass).each(function(index, item) {
+        item = $(item);
+        item.html(item.data('textOld')).data('textOld', null);
+      });
+      // 如果有值筛选开始
+      if(value) {
+        layui.each(treeElem.find('cite'), function(index, elem) {
+          elem = $(elem);
+          var textTemp = elem.text();
+          if(textTemp.toLocaleLowerCase().indexOf(value) === -1) { //不区分大小写
+            // 不存在就隐藏
+            elem.closest('li').addClass(HIDE);
+          } else {
+            // 命中就添加一个class
+            elem.addClass(hintClass).data('textOld', textTemp).html(textTemp.replace(new RegExp(value, 'g'), '<span class="search_hint_text">' + value + '</span>'));
+          }
+        });
+        layui.each(treeElem.find('.' + hintClass), function(index, elem) {
+          elem = $(elem);
+          elem.parents('li').removeClass(HIDE);
+          elem.parents('ul').each(function(i, item) {
+            if(!$(item).hasClass('layui-show')) {
+              $(item).parent('li').find('>i').click();
+            }
+          });
+          elem.parents('ul').parent('li').removeClass(HIDE);
+        });
+      }
+      typeof callback === 'function' && callback.call(that, treeElem, filterElem, treeElem.find('.' + hintClass).length);
+    });
+  };
+  tree.render({
+    elem: '#layTree' //指定元素
+      ,
+    branchExtent: ["Ico_fold", "Ico_launch"] //树形折叠图标第一个是折叠样式，第二个展开样式
+      ,
+    target: '_blank' //是否新选项卡打开（比如节点返回href才有效）
+      ,
+    check: 'checkbox',
+    checkboxName: 'ck' //复选框的name属性值
+      ,
+    checkboxStyle: "",
+    drag: true,
+    data: [ //节点
+      {
+        name: '常用文件夹',
+        id: 1,
+        alias: 'changyong',
+        checked:  true,
+        data: {
+          text: 123, //data-text 用于存储数据
+          ceshi: 456
+        },
+        children: [
+          {
+            name: '所有未读',
+            id: 11,
+            href: 'http://www.layui.com/',
+            alias: 'weidu',
+            checked:  true,
+            leaf: "Ico_point1" //css样式
+              ,
+            data: {}
+              },
+          {
+            name: '置顶邮件',
+            id: 12,
+            leaf: "Ico_point2",
+            data: {}
+              }, {
+            name: '邮件标签邮件',
+            id: 13,
+            leaf: "Ico_point3",
+            data: {},
+            children: [
+              {
+                name: '所有未读',
+                id: 11,
+                href: 'http://www.layui.com/',
+                alias: 'weidu',
+                checked:  true,
+                leaf: "Ico_point1" //css样式
+                  ,
+                data: {}
+                  },
+              {
+                name: '置顶邮件',
+                id: 12,
+                leaf: "Ico_point2",
+                data: {}
+                  }, {
+                name: '邮件标签邮件',
+                id: 13,
+                leaf: "Ico_point3",
+                data: {}
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+    click: function(node) {
+      console.log(node) //node即为当前点击的节点数据
+      var as = $("#layTree").find('a');
+      $.each(as, function(index, obj) {
+        if($(obj).children("cite").text() == '置顶邮件') {
+          console.log($(obj).parent());
+          $(obj).parent().append("<ul class=\"layui-show\"><li><i style=\"paddling-left: 28px;\"></i><input type=\"checkbox\" name=\"ck\" checked=\"checked\" data-parent-id=\"lyn_1554703113157_1_3_lel\" id=\"lyn_1554703113158_3_5_nly\"><a href=\"http://www.layui.com/\" target=\"_blank\"><i class=\"layui-icon Ico_point1\"></i><cite>所有未读</cite></a></li><li><i style=\"paddling-left: 28px;\"></i><input type=\"checkbox\" name=\"ck\" data-parent-id=\"lyn_1554703113157_1_3_lel\" id=\"lyn_1554703113160_5_7_nayryl\"><a href=\"javascript:;\" class=\"\"><i class=\"layui-icon Ico_point2\"></i><cite>置顶邮件</cite></a></li><li><i class=\"layui-icon layui-tree-spread\"></i><input type=\"checkbox\" name=\"ck\" data-parent-id=\"lyn_1554703113157_1_3_lel\" id=\"lyn_1554703113160_7_9_ney\"><a href=\"javascript:;\"><i class=\"layui-icon Ico_fold\"></i><cite>邮件标签邮件</cite></a><ul class=\"\"><li><i style=\"paddling-left: 28px;\"></i><input type=\"checkbox\" name=\"ck\" checked=\"checked\" data-parent-id=\"lyn_1554703113160_7_9_ney\" id=\"lyn_1554703113161_9_11_aa\"><a href=\"http://www.layui.com/\" target=\"_blank\"><i class=\"layui-icon Ico_point1\"></i><cite>所有未读</cite></a></li><li><i style=\"paddling-left: 28px;\"></i><input type=\"checkbox\" name=\"ck\" data-parent-id=\"lyn_1554703113160_7_9_ney\" id=\"lyn_1554703113161_11_13_lrl\"><a href=\"javascript:;\"><i class=\"layui-icon Ico_point2\"></i><cite>置顶邮件</cite></a></li><li><i style=\"paddling-left: 28px;\"></i><input type=\"checkbox\" name=\"ck\" data-parent-id=\"lyn_1554703113160_7_9_ney\" id=\"lyn_1554703113162_13_15_e\"><a href=\"javascript:;\"><i class=\"layui-icon Ico_point3\"></i><cite>邮件标签邮件</cite></a></li></ul></li></ul>");
+          //element.init();
+          // tree.render();
+          return false;
+        }
+      })
+    },
+    onchange: function(event, item) { //当当前input发生变化后所执行的回调
+      console.log(item); //item即为当前点击的节点数据
+      console.log(event); //事件源
+    },
+    rightClick: function(event, elem) {
+      console.log("你的鼠标右击了我！" + elem);
+      console.log(elem);
+      event.preventDefault();
+      return false;
+    }
+  });
+  tree.syncLayuiTreeFilter('layTree', '[name="searchTree"]', function(treeElem, filterElem, hitNumbers) {
+    console.log('hitNumbers', hitNumbers);
+    layer.msg('找到' + hitNumbers + '个节点');
+  });
+});
+</script>
+
+</html>
