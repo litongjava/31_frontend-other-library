@@ -133,3 +133,5 @@ node_modules/
 dist/
 dist.zip
 package-lock.json
+
+yarn.lock
