@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import HelloWorld from '@/components/ThreejsHelloWorld.vue'
+import HelloWorld from '@/components/ThreejsOrbitControls.vue'
 
 export default {
   name: 'HomeView',
